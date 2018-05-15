@@ -1,0 +1,29 @@
+{% extends "webapp/header.html" %}
+
+{% block content %}
+<header>
+<h1>Weather API</h1>
+<h2>The website is created with <a href="https://www.python.org/"> Python</a> and <a href="https://www.djangoproject.com/">Django</a>.</h2>
+<h3>The Weather is fetched from <a href="https://www.openweathermap.org/api_keys">Open weather map</a> with<a href="http://docs.python-requests.org/en/master/"> Requests</a>.</h3>
+</header>
+
+
+<form id="search" method="POST">
+  {% csrf_token %}
+  {{ form.name }}
+
+  <button id="searchButton" type="submit" >Add</button>
+</form>
+<div id="weatherList">
+  {% for weather_report in weather_data %}
+  <div class="weather">
+    <h4>{{ weather_report.city_name }}</h4>
+    <img src="http://openweathermap.org/img/w/{{ weather_report.icon }}.png" alt="image"/>
+    <h5>{{ weather_report.temp }} °C</h5>
+    <p>{{ weather_report.desc}}</p>
+  <!--  <button class="delete">✖</button> -->
+  </div>
+{% endfor %}
+</div>
+
+{% endblock %}
